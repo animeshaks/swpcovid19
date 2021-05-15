@@ -1,0 +1,104 @@
+<div ng-controller="needyformcontroller">
+    <div class="site-section" style="background-color: rgba(111, 66, 193, 0.05);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 symptom" ng-hide="otpform">
+                    <h2 class="mb-4 section-heading text-lg-center text-uppercase">You Need Help ?</h2>
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="fname">Full Name</label>
+                                    <input type="text" class="form-control" placeholder="eg. Abhishek" ng-model="user_name" required >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Phone">Phone</label>
+                                    <input type="Number" id="Phone" class="form-control" placeholder="eg. XXXXXXXXXX" ng-model="user_mobile" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="">Address Line & Landmark</label>
+                                    <input type="text" class="form-control" placeholder="" ng-model="landmark" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Pin code">Pin Code</label>
+                                    <input type="Number" class="form-control" placeholder="eg. 786221" ng-model="pincode" ng-blur="get_location_data()" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="">Area</label>
+                                    <input type="text" class="form-control" placeholder="" ng-model="area" required disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="">District</label>
+                                    <input type="text" class="form-control" placeholder="" ng-model="district" required disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group"> 
+                                    <label for="Pin code">Stuff Required</label> 
+                                    <select class="form-select form-control" ng-model="required_stuff">
+                                        <option value="Oxygen-Cylinder">Oxygen Cylinder</option>
+                                        <option value="Plasma">Plasma</option>
+                                        <option value="Oxygen-Concentrator">Oxygen Concentrator</option>
+                                        <option value="Remedesivir">Remedesivir</option>
+                                        <option value="MVM">Multi Vitamins Medicine</option>
+                                        <option value="Conveyance-Services">Conveyance-Services</option>
+                                        <option value="FQA">Free Quartine Availabilty</option>
+                                        <option value="MSPPE">Marks Sanitizer PPE kits</option>
+                                        <option value="Grocessary">Grocessary</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="remark">Remark</label>
+                                    <textarea name="remark" class="form-control" cols="30" rows="3" placeholder="Your Valuable Remark" ng-model="remark"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 float-right">
+                                <input type="submit" class="btn btn-primary" ng-click="create_request(user_name,user_mobile,landmark,pincode,area,district,region,state,required_stuff,remark)" value="Request">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 offset-lg-3 symptom" ng-show="otpform">
+                    <h2 class="mb-1 section-heading text-lg-center text-uppercase">Enter OTP</h2>
+                    <p class="mb-2 text-lg-center">Your request ID : {{requestid}}</p>
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="Number" class="form-control" placeholder="Enter Your OTP" style="border-radius: 20px;" ng-model="otp" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="submit" class="btn btn-primary" ng-click="verify_user(otp,requestid)" value="Submit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
