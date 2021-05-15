@@ -71,5 +71,67 @@ class anisrijan{
 			return false;	
 	}
 
+	public function get_request_id(){
+		$query = mysqli_query($this->db, "SELECT lpad(id+1,5,'0') AS id FROM request ORDER BY id DESC LIMIT 1") or die(mysqli_error($this->db));
+	
+		$row=mysqli_fetch_array($query,MYSQLI_ASSOC);
+		if($row['id']<00002)
+			$id = '00001';
+		else
+			$id = $row['id'];
+		return $id;
+	}
+
+	public function add_new_request($request_id,$name,$mobile,$landmark,$pincode,$area,$district,$region,$state,$required_stuff,$remark,$isVerified,$verification_code,$create_date){
+		$request_id = mysqli_real_escape_string($this->db,$request_id);
+		$name = mysqli_real_escape_string($this->db,$name);
+		$mobile = mysqli_real_escape_string($this->db,$mobile);
+		$landmark = mysqli_real_escape_string($this->db,$landmark);
+		$pincode = mysqli_real_escape_string($this->db,$pincode);
+		$area = mysqli_real_escape_string($this->db,$area);
+		$district = mysqli_real_escape_string($this->db,$district);
+		$region = mysqli_real_escape_string($this->db,$region);
+		$state = mysqli_real_escape_string($this->db,$state);
+		$required_stuff = mysqli_real_escape_string($this->db,$required_stuff);
+		$remark = mysqli_real_escape_string($this->db,$remark);
+		$isVerified = mysqli_real_escape_string($this->db,$isVerified);
+		$verification_code = mysqli_real_escape_string($this->db,$verification_code);
+		$create_date = mysqli_real_escape_string($this->db,$create_date);
+
+		$query = mysqli_query($this->db, "INSERT INTO request (request_id,seeker_name,mobile,pincode,landmark,area,district,region,state,required_stuff,description,isVerified,verification_code,last_updated) VALUES ('$request_id','$name','$mobile','$pincode','$landmark','$area','$district','$region','$state','$required_stuff','$remark','$isVerified','$verification_code','$create_date')") or die(mysqli_error($this->db));
+
+		if($query)
+			return $request_id;
+		else
+			return false;
+	}
+
+	public function verify_seeker($request_id,$otp){
+		$request_id = mysqli_real_escape_string($this->db,$request_id);
+		$otp = mysqli_real_escape_string($this->db,$otp);
+
+		$query1 = mysqli_query($this->db, "SELECT request_id FROM request WHERE request_id='$request_id' AND verification_code='$otp'") or die(mysqli_error($this->db));
+		if ($query1) {
+			$row=mysqli_fetch_array($query1,MYSQLI_ASSOC);
+
+			$last_updated = time();
+
+			$query2 = mysqli_query($this->db, "UPDATE request SET isVerified = 1, last_updated='$last_updated' WHERE request_id='$row[request_id]'") or die(mysqli_error($this->db));
+
+			return $row;
+		}else{
+			return false;
+		}
+	}
+
+	public function add_seeker_stats_details($request_id,$create_date){
+		$request_id = mysqli_real_escape_string($this->db,$request_id);
+		$query = mysqli_query($this->db, "INSERT INTO request_statistics (request_id,upvote,downvote,last_updated) VALUES ('$request_id',0,0,'$create_date')") or die(mysqli_error($this->db));
+		if($query)
+			return true;
+		else
+			return false;	
+	}
+
 }
 ?>

@@ -19,7 +19,8 @@ app.config(function ($stateProvider,$urlMatcherFactoryProvider,$urlRouterProvide
 
 	.state("needyform", {
 		url: "/seeker-form",
-		templateUrl: "view/seeker-form.html"
+		templateUrl: "view/seeker-form.html",
+		controller: "needycontroller"
 	})
 
 	.state("donorform", {

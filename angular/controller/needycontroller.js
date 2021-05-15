@@ -1,4 +1,4 @@
-app.controller('needyformcontroller',['$scope', '$rootScope', '$http', '$location', '$anchorScroll' , function($scope, $rootScope, $http, $location, $anchorScroll) {
+app.controller('needycontroller',['$scope', '$rootScope', '$http', '$location', '$anchorScroll' , function($scope, $rootScope, $http, $location, $anchorScroll) {
 
     $scope.get_location_data = () => {
         const url = "https://api.postalpincode.in/pincode/";
