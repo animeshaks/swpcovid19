@@ -1,0 +1,13 @@
+.top-search-form{
+	padding: 4rem 0 2rem 0;
+    /*border-bottom-right-radius: 30%; */
+    border-bottom-left-radius: 30%;
+    background: rgba(111, 66, 193, 0.1);
+    overflow: hidden;
+}
+
+.top-search-form .heading{
+	font-weight: 900;
+    color: #6f42c1;
+    font-size: 40px;
+}

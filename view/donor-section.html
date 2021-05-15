@@ -1,0 +1,213 @@
+<div ng-controller="donerformcontroller">
+	<div class="top-search-form">
+		<div class="container">
+			<div class="row align-items-center justify-content-center">
+				<div class="col-lg-8 text-center mx-auto my-5">
+					<h1 class="heading mb-5">Search Using Only Pincode</h1>
+					<form>
+						<div class="row">
+							<div class="col-lg-8">
+								<div class="form-group">
+									<input type="Number" id="Pin Code" class="form-control" placeholder="Enter Your Pincode" style="border-radius: 20px;height: 40px;" ng-model="pincode" required>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<input type="submit" class="btn btn-secondary btn-block" ng-click="search_donations(pincode)" value="Search">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="site-section bg-primary-light" ng-show="doneravailable">
+		<div class="container">
+
+			<div class="symptom row mb-5">
+				<div class="col-lg-7 mx-auto text-center">
+					<h2 class="mb-4 section-heading">Search By Filter</h2>
+				</div>
+
+				<div class="table-responsive">
+					<table class="mytable table-bordered" style="overflow-x:auto;">
+						<tr>
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Oxygen Cylinder')" value="Oxygen-Cylinder">
+									<label class="form-check-label" for="inlineCheckbox1">Oxygen Cylinder</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Plasma')" value="Plasma">
+									<label class="form-check-label" for="inlineCheckbox2">Plasma</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Oxygen-Concentrator')">
+									<label class="form-check-label" for="inlineCheckbox3">Oxygen-Concentrator</label>
+								</div>
+							</td>	
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Remedesivir')">
+									<label class="form-check-label" for="inlineCheckbox1">Remedesivir</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Grocessary')">
+									<label class="form-check-label" for="inlineCheckbox1">Grocessary</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Multi Vitamins Medicine')">
+									<label class="form-check-label" for="inlineCheckbox1">Multi Vitamins Medicine</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Conveyance Services')">
+									<label class="form-check-label" for="inlineCheckbox2">Conveyance Services</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Free Quartine Availabilty')">
+									<label class="form-check-label" for="inlineCheckbox3">Free Quartine Availabilty</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Mask Sanitizer PPE kits')">
+									<label class="form-check-label" for="inlineCheckbox1">Mask Sanitizer PPE kits</label>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+            <!--- cards -->
+
+			<div class="row">
+				<div class="col-lg-4 mb-4" ng-repeat="donation in donationdetails">
+					<div class="symptom">
+						<div class="text">
+							
+							<small class="float-right">{{donation.create_date}}</small>
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0px; ">
+									<h3 style="font-size: 1.3rem;">{{donation.donation_stuff}}</h3>
+								</div>
+							</div>
+
+							<hr>
+
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<h3>{{donation.doner_name}}</h3>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<p>{{donation.donation_type}} : {{donation.donation_charge}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<p>{{donation.description}}</p>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
+									<p>{{donation.doner_pincode}}</p>
+									<p>{{donation.doner_area}}</p>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
+									<a href="tel://{{donation.doner_mobile}}" class="btn btn-primary float-right"><span class="icon-phone mr-2 mt-3" ></span>Call</a>
+								</div>
+							</div>
+							<hr>
+							<div class="row justify-content-between">
+								<div class="col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
+									<a class="btn btn-success" style="font-size: 15px;float: right;padding: 7px 20px;color: #000;" ng-click="like_modal(donation.donation_id)">
+										<span class="icon-thumbs-up">
+											<small>&nbsp;{{donation.upvote}}</small>
+										</span>
+									</a>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
+									<a class="btn btn-danger" style="font-size: 15px;padding: 7px 20px;color: #000;" >
+										<span class="icon-thumbs-down">
+											<small>&nbsp;{{donation.upvote}}</small>
+										</span>
+									</a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="site-section bg-primary-light" ng-show="donernotavailable">
+		<div class="container">
+			<div class="symptom row mb-5">
+				<div class="col-lg-7 mx-auto text-center">
+					<h2 class="mb-4 section-heading">No doner availaible in your location :(</h2>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal" id="likedonationmodel" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<h5 class="modal-title">Like {{donate_id}} ?</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          	<span aria-hidden="true">&times;</span>
+			        </button>
+		      	</div>
+		      	<div class="modal-body">
+		        	<form>
+						<div class="row justify-content-between">
+							<div class="col-lg-8">
+								<div class="form-group">
+									<input type="text" style="border-radius: 20px;height: 40px;" class="form-control" placeholder="Enter Your Request ID" ng-model="requestId" required>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<input type="submit" class="btn btn-success btn-block" ng-click="like_donation(donate_id)" value="Submit">
+							</div>
+						</div>
+					</form>
+		      	</div>
+		      	<div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Save changes</button>
+		      	</div>
+		    </div>
+	  	</div>
+	</div>
+
+</div>

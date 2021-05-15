@@ -29,6 +29,12 @@ app.config(function ($stateProvider,$urlMatcherFactoryProvider,$urlRouterProvide
 		controller: "donercontroller"
 	})
 
+	.state("donorsection", {
+		url: "/donor-section",
+		templateUrl: "view/donor-section.html",
+		controller: "donercontroller"
+	})
+
 });
 	
 
