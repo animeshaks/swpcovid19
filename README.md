@@ -1,2 +1,1 @@
-# swpcovid19
-Society Welfare Portal For COVID-19
+# Society Welfare Portal For COVID-19
