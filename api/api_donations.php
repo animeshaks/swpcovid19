@@ -32,9 +32,9 @@ if ($_POST['action']=="add_new_donation") {
 	else{
 
 		$data=$srijan->add_new_donation($donation_id,$doner_name,$doner_mobile,$landmark,$pincode,$area,$district,$region,$state,$donation_stuff,$donation_type,$chargable_amount,$remark,$isVerified,$verification_code,$create_date);
-		 
+
 		$statsdata=$srijan->add_donation_stats_details($donation_id,$create_date);
-       
+
 
 		if ($data && $statsdata) {
 			$message=$data;
@@ -60,7 +60,7 @@ if ($_POST['action']=="verify_user") {
 	else{
 
 		$data=$srijan->verify_doner($donation_id,$otp);
-       
+
 		if ($data) {
 			$message="Donation added successfully.";
 		}else{
@@ -73,5 +73,72 @@ if ($_POST['action']=="verify_user") {
 	echo $json; 
 }
 
+if ($_GET['action']=="fetch_donations_by_pincode") {
+	$pincode=$_GET['pincode'];
+	$region=$_GET['region'];
+
+	if ($pincode=="") 
+	{
+		$message= "Please Enter Pincode !!";
+	}
+	else{
+		$data=$srijan->fetch_donations_by_pincode($pincode,$region);
+		if ($data) {
+			$message=$data;
+		}else{
+			$message="No details found.";
+		}
+	} 
+
+	$message= (object) $message;
+	$json = json_encode($message);
+	echo $json; 
+}
+
+if ($_POST['action']=="like_donation") {
+
+	$donation_id=$_POST['donationid'];
+	$request_id=$_POST['requestId'];
+
+	if ($request_id=="") 
+	{
+		$message= "Request id is required";
+	}
+	else{
+		$data=$srijan->like_a_donation($donation_id,$request_id);
+
+		if ($data){
+			$message="Donation liked successfully.";
+		}else{
+			$message="Invalid Request Id";
+		}
+	} 
+	$message= (object) $message;
+	$json = json_encode($message);
+	echo $json; 
+}
+
+if ($_POST['action']=="dislike_donation") {
+
+	$donation_id=$_POST['donationid'];
+	$request_id=$_POST['requestId'];
+
+	if ($request_id=="") 
+	{
+		$message= "Request id is required";
+	}
+	else{
+		$data=$srijan->dislike_a_donation($donation_id,$request_id);
+
+		if ($data){
+			$message="Donation disliked successfully.";
+		}else{
+			$message="Invalid Request Id";
+		}
+	} 
+	$message= (object) $message;
+	$json = json_encode($message);
+	echo $json; 
+}
 
 ?>

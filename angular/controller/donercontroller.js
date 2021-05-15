@@ -103,6 +103,96 @@ app.controller('donercontroller',['$scope', '$rootScope', '$http', '$location', 
         });
     }
 
+    $scope.search_donations=function(pincode,region){
+        $scope.donationdetails="";
+        $http.get("api/api_donations.php?action=fetch_donations_by_pincode&pincode="+pincode+"&region="+region)
+        .then(function(donationdetails){
 
+            // console.log(donationdetails.data.scalar);
+
+            if (donationdetails.data.scalar=="No details found." || donationdetails.data.scalar=="All fields are required") {
+                // alert(donationdetails.data.scalar);
+                $scope.doneravailable=false;
+                $scope.donernotavailable=true;
+            } 
+            else{
+                $scope.donationdetails=donationdetails.data;
+                $scope.doneravailable=true;
+                $scope.donernotavailable=false;
+            }
+        });
+    }
+
+    $scope.like_modal=function(donation_id){
+        $('#likedonationmodel').modal('toggle'); 
+        $scope.donate_id = donation_id;
+    }
+
+    $scope.dislike_modal=function(donation_id){
+        $('#dislikedonationmodel').modal('toggle'); 
+        $scope.donate_id = donation_id;
+    }
+
+    $scope.like_donation=function(donationid,requestId){
+        $http({
+            method : "POST",
+            url : 'api/api_donations.php',
+            data: {
+                requestId:requestId,
+                donationid:donationid,
+                action:"like_donation"
+            },
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+        })
+        .then((data) => {
+            $scope.message="";
+            if (data.errors) {
+                alert("Error occured... please try again later :)");
+            }else{
+                $scope.message= data.data.scalar;
+
+                console.log($scope.message)
+
+                if($scope.message=="Donation liked successfully."){
+                    alert($scope.message);
+                    // location.reload();
+                }
+                else{
+                    alert($scope.message);
+                }
+            }
+        });
+    }
+
+    $scope.dislike_donation=function(donationid,requestId){
+        $http({
+            method : "POST",
+            url : 'api/api_donations.php',
+            data: {
+                requestId:requestId,
+                donationid:donationid,
+                action:"dislike_donation"
+            },
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+        })
+        .then((data) => {
+            $scope.message="";
+            if (data.errors) {
+                alert("Error occured... please try again later :)");
+            }else{
+                $scope.message= data.data.scalar;
+
+                console.log($scope.message)
+
+                if($scope.message=="Donation disliked successfully."){
+                    alert($scope.message);
+                    // location.reload();
+                }
+                else{
+                    alert($scope.message);
+                }
+            }
+        });
+    }
 
 }]);

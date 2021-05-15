@@ -133,5 +133,57 @@ class anisrijan{
 			return false;	
 	}
 
+	public function fetch_donations_by_pincode($pincode,$region){
+		$pincode = mysqli_real_escape_string($this->db,$pincode);
+		$region = mysqli_real_escape_string($this->db,$region);
+
+		$query = mysqli_query($this->db, "SELECT donation.donation_id,donation.doner_name,donation.doner_mobile,donation.doner_pincode,donation.doner_landmark,donation.doner_area,donation.doner_district,donation.doner_region,donation.doner_state,donation.donation_stuff,donation.donation_type,donation.donation_charge,donation.description,donation.create_date,donation_statistics.upvote,donation_statistics.downvote FROM donation JOIN donation_statistics USING (donation_id) WHERE donation.doner_region='$region' ORDER BY create_date DESC") or die(mysqli_error($this->db));
+		if($query){
+			while ($row=mysqli_fetch_array($query,MYSQLI_ASSOC)) {
+				$row['create_date']=date('d/m/Y',$row['create_date']);
+				$data[]=$row;
+			}
+			return $data;
+		}else{
+			return false;
+		}	
+	}
+
+	public function like_a_donation($donation_id,$request_id){
+		$donation_id = mysqli_real_escape_string($this->db,$donation_id);
+		$request_id = mysqli_real_escape_string($this->db,$request_id);
+
+		$query = mysqli_query($this->db, "SELECT id FROM request WHERE request_id='$request_id'") or die(mysqli_error($this->db));
+		$count = mysqli_num_rows($query);
+		if($count == 0){
+			return false;
+		}
+		else{
+			$query1 = mysqli_query($this->db, "UPDATE donation_statistics SET upvote = upvote+1 WHERE donation_id='$donation_id'") or die(mysqli_error($this->db));
+			if($query1)
+				return true;
+			else
+				return false;	
+		}
+	}
+
+	public function dislike_a_donation($donation_id,$request_id){
+		$donation_id = mysqli_real_escape_string($this->db,$donation_id);
+		$request_id = mysqli_real_escape_string($this->db,$request_id);
+
+		$query = mysqli_query($this->db, "SELECT id FROM request WHERE request_id='$request_id'") or die(mysqli_error($this->db));
+		$count = mysqli_num_rows($query);
+		if($count == 0){
+			return false;
+		}
+		else{
+			$query1 = mysqli_query($this->db, "UPDATE donation_statistics SET downvote = downvote+1 WHERE donation_id='$donation_id'") or die(mysqli_error($this->db));
+			if($query1)
+				return true;
+			else
+				return false;	
+		}
+	}
+
 }
 ?>
