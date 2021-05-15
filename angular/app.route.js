@@ -24,7 +24,8 @@ app.config(function ($stateProvider,$urlMatcherFactoryProvider,$urlRouterProvide
 
 	.state("donorform", {
 		url: "/donor-form",
-		templateUrl: "view/donor-form.html"
+		templateUrl: "view/donor-form.html",
+		controller: "donercontroller"
 	})
 
 });

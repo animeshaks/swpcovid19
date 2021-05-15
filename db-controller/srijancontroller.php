@@ -7,5 +7,69 @@ class anisrijan{
 		$this->db = $db;
 	}
 
+	public function get_donation_id(){
+		$query = mysqli_query($this->db, "SELECT lpad(id+1,5,'0') AS id FROM donation ORDER BY id DESC LIMIT 1") or die(mysqli_error($this->db));
+	
+		$row=mysqli_fetch_array($query,MYSQLI_ASSOC);
+		if($row['id']<00002)
+			$id = '00001';
+		else
+			$id = $row['id'];
+		return $id;
+	}
+
+	public function add_new_donation($donation_id,$doner_name,$doner_mobile,$landmark,$pincode,$area,$district,$region,$state,$donation_stuff,$donation_type,$chargable_amount,$remark,$isVerified,$verification_code,$create_date){
+		$donation_id = mysqli_real_escape_string($this->db,$donation_id);
+		$doner_name = mysqli_real_escape_string($this->db,$doner_name);
+		$doner_mobile = mysqli_real_escape_string($this->db,$doner_mobile);
+		$landmark = mysqli_real_escape_string($this->db,$landmark);
+		$pincode = mysqli_real_escape_string($this->db,$pincode);
+		$area = mysqli_real_escape_string($this->db,$area);
+		$district = mysqli_real_escape_string($this->db,$district);
+		$region = mysqli_real_escape_string($this->db,$region);
+		$state = mysqli_real_escape_string($this->db,$state);
+		$donation_stuff = mysqli_real_escape_string($this->db,$donation_stuff);
+		$donation_type = mysqli_real_escape_string($this->db,$donation_type);
+		$chargable_amount = mysqli_real_escape_string($this->db,$chargable_amount);
+		$remark = mysqli_real_escape_string($this->db,$remark);
+		$isVerified = mysqli_real_escape_string($this->db,$isVerified);
+		$verification_code = mysqli_real_escape_string($this->db,$verification_code);
+		$create_date = mysqli_real_escape_string($this->db,$create_date);
+
+		$query = mysqli_query($this->db, "INSERT INTO donation (donation_id,doner_name,doner_mobile,doner_pincode,doner_landmark,doner_area,doner_district,doner_region,doner_state,donation_stuff,donation_type,donation_charge,description,isVerified,verification_code,create_date) VALUES ('$donation_id','$doner_name','$doner_mobile','$pincode','$landmark','$area','$district','$region','$state','$donation_stuff','$donation_type','$chargable_amount','$remark','$isVerified','$verification_code','$create_date')") or die(mysqli_error($this->db));
+
+		if($query)
+			return $donation_id;
+		else
+			return false;
+	}
+
+	public function verify_doner($donation_id,$otp){
+		$donation_id = mysqli_real_escape_string($this->db,$donation_id);
+		$otp = mysqli_real_escape_string($this->db,$otp);
+
+		$query1 = mysqli_query($this->db, "SELECT donation_id FROM donation WHERE donation_id='$donation_id' AND verification_code='$otp'") or die(mysqli_error($this->db));
+		if ($query1) {
+			$row=mysqli_fetch_array($query1,MYSQLI_ASSOC);
+
+			$last_login = time();
+
+			$query2 = mysqli_query($this->db, "UPDATE donation SET isVerified = 1 WHERE donation_id='$row[donation_id]'") or die(mysqli_error($this->db));
+
+			return $row;
+		}else{
+			return false;
+		}
+	}
+
+	public function add_donation_stats_details($donation_id,$create_date){
+		$donation_id = mysqli_real_escape_string($this->db,$donation_id);
+		$query = mysqli_query($this->db, "INSERT INTO donation_statistics (donation_id,upvote,downvote,last_updated) VALUES ('$donation_id',0,0,'$create_date')") or die(mysqli_error($this->db));
+		if($query)
+			return true;
+		else
+			return false;	
+	}
+
 }
 ?>

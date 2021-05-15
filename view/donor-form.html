@@ -1,4 +1,4 @@
-<div ng-controller="donerformcontroller">
+<div ng-controller="donercontroller">
     <div class="site-section" style="background-color: rgba(111, 66, 193, 0.05);">
         <div class="container">
             <div class="row">
@@ -34,7 +34,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="Pin code">Pin Code</label>
-                                    <input type="Number" name="pc" id="Pin Code" class="form-control" placeholder="eg. 786221" ng-model="pincode" ng-blur="get_location_data()" ng-pattern="/^[0-9]{6,6}$/" required>
+                                    <input type="Number" name="pc" id="Pin Code" class="form-control" placeholder="eg. 786221" ng-model="pincode" ng-blur="get_location_data()" required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -73,17 +73,17 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="Phone"></label>
+                                    <label for="">Select Donation Type</label>
                                     <select class="form-select form-control" ng-model="donation_type">   
-                                        <option value="Oxygen-Cylinder">Unpaid</option>
-                                        <option value="Plasma">Paid</option>
+                                        <option value="Unpaid">Unpaid</option>
+                                        <option value="Paid">Paid</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for=""></label>
-                                    <input type="Number" class="form-control" placeholder="Price" value="0" ng-model="chargable_amount">
+                                    <label for="">Donation Charge <small>(Only if paid)</small></label>
+                                    <input type="Number" class="form-control" placeholder="Price" ng-value="0" ng-model="chargable_amount">
                                 </div>
                             </div>
                         </div>
