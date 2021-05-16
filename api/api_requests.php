@@ -71,6 +71,73 @@ if ($_POST['action']=="verify_user") {
 	echo $json; 
 }
 
+if ($_GET['action']=="fetch_requests_by_pincode") {
+	$pincode=$_GET['pincode'];
+	$region=$_GET['region'];
+
+	if ($pincode=="") 
+	{
+		$message= "Please Enter Pincode !!";
+	}
+	else{
+		$data=$srijan->fetch_requests_by_pincode($pincode,$region);
+		if ($data) {
+			$message=$data;
+		}else{
+			$message="No details found.";
+		}
+	} 
+
+	$message= (object) $message;
+	$json = json_encode($message);
+	echo $json; 
+}
+
+if ($_POST['action']=="like_request") {
+
+	$donation_id=$_POST['donationid'];
+	$request_id=$_POST['requestId'];
+
+	if ($donation_id=="") 
+	{
+		$message= "Donation id is required";
+	}
+	else{
+		$data=$srijan->like_a_request($request_id,$donation_id);
+
+		if ($data){
+			$message="Request liked successfully.";
+		}else{
+			$message="Invalid Donation Id";
+		}
+	} 
+	$message= (object) $message;
+	$json = json_encode($message);
+	echo $json; 
+}
+
+if ($_POST['action']=="dislike_request") {
+
+	$donation_id=$_POST['donationid'];
+	$request_id=$_POST['requestId'];
+
+	if ($donation_id=="") 
+	{
+		$message= "Donation id is required";
+	}
+	else{
+		$data=$srijan->dislike_a_request($request_id,$donation_id);
+
+		if ($data){
+			$message="Request disliked successfully.";
+		}else{
+			$message="Invalid Donation Id";
+		}
+	} 
+	$message= (object) $message;
+	$json = json_encode($message);
+	echo $json; 
+}
 
 
 
