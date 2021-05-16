@@ -29,7 +29,7 @@ would like to provide to their community
 <p align="center" text-size="20px"><img src="Readme images/Technology stack.png" alt="Technology stack" align="center"></p>
 
 ## Flow Diagram
-<p align="center" text-size="20px" style='color:red'><img src="Readme images/Flow chart.png" alt="Technology stack" align="center"></p>
+<p align="center" text-size="20px" style='color:red'><img src="Readme images/Flow chart.png" alt="Work flow" align="center"></p>
 
 ## How to Install and run on your localhost?
 Don't worry, be Happy . I am here to solve your query :smile:
