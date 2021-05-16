@@ -1,7 +1,7 @@
 # <p align="center" text-size="20px"><img src="Images/Logo.PNG" height="30" width="30">  SWP-Covid19</p>
 
 ## Video Demonstration
-Click on this link](https://www.youtube.com/watch?v=dOutVojxIKs)
+Click on this link(https://www.youtube.com/watch?v=dOutVojxIKs)
 
 ## Problem Statement
 
