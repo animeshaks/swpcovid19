@@ -185,5 +185,57 @@ class anisrijan{
 		}
 	}
 
+	public function fetch_requests_by_pincode($pincode,$region){
+		$pincode = mysqli_real_escape_string($this->db,$pincode);
+		$region = mysqli_real_escape_string($this->db,$region);
+
+		$query = mysqli_query($this->db, "SELECT request.request_id,request.seeker_name,request.mobile,request.pincode,request.landmark,request.area,request.district,request.region,request.state,request.required_stuff,request.description,request.last_updated,request_statistics.upvote,request_statistics.downvote FROM request JOIN request_statistics USING (request_id) WHERE request.region='$region' AND isVerified=1 ORDER BY last_updated DESC") or die(mysqli_error($this->db));
+		if($query){
+			while ($row=mysqli_fetch_array($query,MYSQLI_ASSOC)) {
+				$row['last_updated']=date('d/m/Y',$row['last_updated']);
+				$data[]=$row;
+			}
+			return $data;
+		}else{
+			return false;
+		}	
+	}
+
+	public function like_a_request($request_id,$donation_id){
+		$donation_id = mysqli_real_escape_string($this->db,$donation_id);
+		$request_id = mysqli_real_escape_string($this->db,$request_id);
+
+		$query = mysqli_query($this->db, "SELECT id FROM donation WHERE donation_id='$donation_id'") or die(mysqli_error($this->db));
+		$count = mysqli_num_rows($query);
+		if($count == 0){
+			return false;
+		}
+		else{
+			$query1 = mysqli_query($this->db, "UPDATE request_statistics SET upvote = upvote+1 WHERE request_id='$request_id'") or die(mysqli_error($this->db));
+			if($query1)
+				return true;
+			else
+				return false;	
+		}
+	}
+
+	public function dislike_a_request($request_id,$donation_id){
+		$donation_id = mysqli_real_escape_string($this->db,$donation_id);
+		$request_id = mysqli_real_escape_string($this->db,$request_id);
+
+		$query = mysqli_query($this->db, "SELECT id FROM donation WHERE donation_id='$donation_id'") or die(mysqli_error($this->db));
+		$count = mysqli_num_rows($query);
+		if($count == 0){
+			return false;
+		}
+		else{
+			$query1 = mysqli_query($this->db, "UPDATE request_statistics SET downvote = downvote+1 WHERE request_id='$request_id'") or die(mysqli_error($this->db));
+			if($query1)
+				return true;
+			else
+				return false;	
+		}
+	}
+
 }
 ?>

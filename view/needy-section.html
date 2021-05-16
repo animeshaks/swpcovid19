@@ -1,27 +1,33 @@
-<div ng-controller="donerformcontroller">
+<div ng-controller="needycontroller">
 	<div class="top-search-form">
 		<div class="container">
 			<div class="row align-items-center justify-content-center">
 				<div class="col-lg-8 text-center mx-auto my-5">
-					<h1 class="heading mb-5">Search Seekers by Pincode</h1>
+					<h1 class="heading mb-5">Search Seekers By Pincode</h1>
 					<form>
 						<div class="row">
-							<div class="col-lg-8">
+							<div class="col-lg-4">
 								<div class="form-group">
-									<input type="Number" id="Pin Code" class="form-control" placeholder="Enter Your Pincode" style="border-radius: 20px;height: 40px;" ng-model="pincode" required>
+									<input type="Number" class="form-control" placeholder="Enter Your Pincode" style="border-radius: 20px;height: 40px;" ng-model="pincode" ng-blur="get_location_data()" required>
 								</div>
 							</div>
 							<div class="col-lg-4">
-								<input type="submit" class="btn btn-secondary btn-block" ng-click="search_donations(pincode)" value="Search">
+								<div class="form-group">
+									<input type="text" ng-model="region" class="form-control" style="border-radius: 20px;height: 40px; background-color: #fff;" placeholder="Region" ng-blur="get_location_data()" disabled>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<input type="submit" class="btn btn-secondary btn-block" ng-click="search_requests(pincode,region)" value="Search">
 							</div>
 						</div>
 					</form>
+					<small>(The result will be shown on the basis of your pincode's region.)</small>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="site-section bg-primary-light" ng-show="doneravailable">
+	<div class="site-section bg-primary-light" ng-show="seekeravailable">
 		<div class="container">
 
 			<div class="symptom row mb-5">
@@ -101,14 +107,14 @@
 			</div>
 
 			<div class="row">
-				<div class="col-lg-4 mb-4" ng-repeat="donation in donationdetails">
+				<div class="col-lg-4 mb-4" ng-repeat="request in requestdetails">
 					<div class="symptom">
 						<div class="text">
 							
-							<small class="float-right">{{donation.create_date}}</small>
+							<small class="float-right">{{request.last_updated}}</small>
 							<div class="row">
 								<div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0px; ">
-									<h3 style="font-size: 1.3rem;">{{donation.donation_stuff}}</h3>
+									<h3 style="font-size: 1.3rem;">{{request.required_stuff}}</h3>
 								</div>
 							</div>
 
@@ -116,33 +122,44 @@
 
 							<div class="row">
 								<div class="col-md-12 col-sm-12 col-xs-12">
-									<h3>{{donation.doner_name}}</h3>
+									<h3>{{request.seeker_name}}</h3>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12 col-sm-12 col-xs-12">
-									<p>{{donation.donation_type}} : {{donation.donation_charge}}</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12 col-sm-12 col-xs-12">
-									<p>{{donation.description}}</p>
+									<p>{{request.description}}</p>
 								</div>
 							</div>
 							<br>
 							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<p>{{request.landmark}}</p>
+								</div>
+							</div>
+							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
-									<p>{{donation.doner_pincode}}</p>
-									<p>{{donation.doner_area}}</p>
+									<p>{{request.pincode}}</p>
+									<p>{{request.area}}</p>
 								</div>
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
-									<a href="tel://{{donation.doner_mobile}}" class="btn btn-primary float-right"><span class="icon-phone mr-2 mt-3" ></span>Call</a>
+									<a href="tel://{{request.mobile}}" class="btn btn-primary float-right"><span class="icon-phone mr-2 mt-3" ></span>Call</a>
 								</div>
 							</div>
 							<hr>
-							<div class="row">
+							<div class="row justify-content-between">
 								<div class="col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
-									<h3>Price : {{donation.donation_charge}}</h3>
+									<a class="btn btn-success" style="font-size: 15px;float: right;padding: 7px 20px;color: #000;" ng-click="like_modal(request.request_id)">
+										<span class="icon-thumbs-up">
+											<small>&nbsp;{{request.upvote}}</small>
+										</span>
+									</a>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
+									<a class="btn btn-danger" style="font-size: 15px;padding: 7px 20px;color: #000;" ng-click="dislike_modal(request.request_id)">
+										<span class="icon-thumbs-down">
+											<small>&nbsp;{{request.downvote}}</small>
+										</span>
+									</a>
 								</div>
 							</div>
 
@@ -154,43 +171,71 @@
 		</div>
 	</div>
 
-	<div class="site-section bg-primary-light" ng-show="donernotavailable">
+	<div class="site-section bg-primary-light" ng-show="seekernotavailable">
 		<div class="container">
 			<div class="symptom row mb-5">
 				<div class="col-lg-7 mx-auto text-center">
-					<h2 class="mb-4 section-heading">No doner availaible in your location :(</h2>
+					<h2 class="mb-4 section-heading">No seeker availaible in your location :)</h2>
 				</div>
 
 			</div>
 		</div>
 	</div>
 
-	<div class="modal" id="likedonationmodel" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+	<div class="modal" id="likerequestmodel" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	  	<div class="modal-dialog modal-lg">
 		    <div class="modal-content">
 		      	<div class="modal-header">
-		        	<h5 class="modal-title">Like {{donate_id}} ?</h5>
+		        	<h5 class="modal-title">Like {{req_id}} ?</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          	<span aria-hidden="true">&times;</span>
 			        </button>
 		      	</div>
 		      	<div class="modal-body">
 		        	<form>
-						<div class="row justify-content-between">
-							<div class="col-lg-8">
+						<div class="row">
+							<div class="col-lg-8 offset-lg-2">
+								<small>If Your Donation Id will be correct then only this feature will work !!</small>
 								<div class="form-group">
-									<input type="text" style="border-radius: 20px;height: 40px;" class="form-control" placeholder="Enter Your Request ID" ng-model="requestId" required>
+									<input type="text" style="border-radius: 20px;height: 40px;" class="form-control" placeholder="Enter Your Donation ID" ng-model="donationId" required>
 								</div>
-							</div>
-							<div class="col-lg-4">
-								<input type="submit" class="btn btn-success btn-block" ng-click="like_donation(donate_id)" value="Submit">
 							</div>
 						</div>
 					</form>
 		      	</div>
 		      	<div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Save changes</button>
+			        <button type="button" class="btn btn-primary" ng-click="like_request(req_id,donationId)" data-dismiss="modal">Submit</button>
+		      	</div>
+		    </div>
+	  	</div>
+	</div>
+
+	<div class="modal" id="dislikerequestmodel" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<h5 class="modal-title">Dislike {{req_id}} ?</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          	<span aria-hidden="true">&times;</span>
+			        </button>
+		      	</div>
+		      	<div class="modal-body">
+		        	<form>
+						<div class="row">
+							<div class="col-lg-8 offset-lg-2">
+								<small>If Your Donation Id will be correct then only this feature will work !!</small>
+								<div class="form-group">
+									<input type="text" style="border-radius: 20px;height: 40px;" class="form-control" placeholder="Enter Your Donation ID" ng-model="donationId" required>
+								</div>
+							</div>
+						</div>
+					</form>
+		      	</div>
+		      	<div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" ng-click="dislike_request(req_id,donationId)" data-dismiss="modal">Submit</button>
 		      	</div>
 		    </div>
 	  	</div>
