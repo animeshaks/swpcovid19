@@ -60,7 +60,7 @@ app.controller('needycontroller',['$scope', '$rootScope', '$http', '$location', 
         .then((data) => {
             $scope.message="";
             if (data.errors) {
-                    // swal('Insertion Failed', 'Error occured during Insertion :)', 'error');
+                    alert('Error occured during Insertion :)');
                 }else{
                     $scope.message= data.data.scalar;
 
@@ -125,10 +125,32 @@ app.controller('needycontroller',['$scope', '$rootScope', '$http', '$location', 
             } 
             else{
                 $scope.requestdetails=requestdetails.data;
+                $scope.filteredResult=$scope.requestdetails;
                 $scope.seekeravailable=true;
                 $scope.seekernotavailable=false;
             }
         });
+    }
+
+    $scope.stuffFilter = function(result) {
+        var x = Object.values($scope.requestdetails);
+
+        // var filterResult = [];
+
+        // for (var i = 0; i < x.length; i++) {
+        //     let element = x.filter(item => item.required_stuff === result);
+        //     filterResult.push(element);
+        // }
+
+        var filterResult = x.filter(item => item.required_stuff === result);
+        console.log(filterResult);
+
+        if(filterResult.length === 0){
+            alert("No Request Found of your selected choice");
+            $scope.filteredResult = filterResult;
+        }else{
+            $scope.filteredResult = filterResult;
+        }
     }
 
     $scope.like_modal=function(request_id){

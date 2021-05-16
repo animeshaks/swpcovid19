@@ -40,35 +40,35 @@
 						<tr>
 							<td style="padding:10px">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Oxygen Cylinder')" value="Oxygen-Cylinder">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Oxygen Cylinder')" value="Oxygen-Cylinder">
 									<label class="form-check-label" for="inlineCheckbox1">Oxygen Cylinder</label>
 								</div>
 							</td>
 
 							<td style="padding:10px">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Plasma')" value="Plasma">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Plasma')" value="Plasma">
 									<label class="form-check-label" for="inlineCheckbox2">Plasma</label>
 								</div>
 							</td>
 
 							<td style="padding:10px">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Oxygen-Concentrator')">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Oxygen-Concentrator')">
 									<label class="form-check-label" for="inlineCheckbox3">Oxygen-Concentrator</label>
 								</div>
 							</td>	
 
 							<td style="padding:10px">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Remedesivir')">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Remedesivir')">
 									<label class="form-check-label" for="inlineCheckbox1">Remedesivir</label>
 								</div>
 							</td>
 
 							<td style="padding:10px">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Grocessary')">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Grocessary')">
 									<label class="form-check-label" for="inlineCheckbox1">Grocessary</label>
 								</div>
 							</td>
@@ -76,38 +76,39 @@
 						<tr>
 							<td style="padding:10px">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Multi Vitamins Medicine')">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Multi Vitamins Medicine')">
 									<label class="form-check-label" for="inlineCheckbox1">Multi Vitamins Medicine</label>
 								</div>
 							</td>
 
 							<td style="padding:10px">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Conveyance Services')">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Conveyance Services')">
 									<label class="form-check-label" for="inlineCheckbox2">Conveyance Services</label>
 								</div>
 							</td>
 
 							<td style="padding:10px">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Free Quartine Availabilty')">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Free Quartine Availabilty')">
 									<label class="form-check-label" for="inlineCheckbox3">Free Quartine Availabilty</label>
 								</div>
 							</td>
 
 							<td style="padding:10px">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" ng-click="includeStuff('Mask Sanitizer PPE kits')">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Mask Sanitizer PPE kits')">
 									<label class="form-check-label" for="inlineCheckbox1">Mask Sanitizer PPE kits</label>
 								</div>
 							</td>
 						</tr>
 					</table>
+					<small style="color: red;">(Currently this filter will show only one element at a time, but we will enhance this feature very soon.......)</small>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-lg-4 mb-4" ng-repeat="donation in donationdetails">
+				<div class="col-lg-4 mb-4" ng-repeat="donation in filteredResult">
 					<div class="symptom">
 						<div class="text">
 							

@@ -117,10 +117,32 @@ app.controller('donercontroller',['$scope', '$rootScope', '$http', '$location', 
             } 
             else{
                 $scope.donationdetails=donationdetails.data;
+                $scope.filteredResult=$scope.donationdetails;
                 $scope.doneravailable=true;
                 $scope.donernotavailable=false;
             }
         });
+    }
+
+    $scope.stuffFilter = function(result) {
+        var x = Object.values($scope.donationdetails);
+
+        // var filterResult = [];
+
+        // for (var i = 0; i < x.length; i++) {
+        //     let element = x.filter(item => item.donation_stuff === result);
+        //     filterResult.push(element);
+        // }
+
+        var filterResult = x.filter(item => item.donation_stuff === result);
+        console.log(filterResult);
+
+        if(filterResult.length === 0){
+            alert("No Doner Found of your selected choice");
+            $scope.filteredResult = filterResult;
+        }else{
+            $scope.filteredResult = filterResult;
+        }
     }
 
     $scope.like_modal=function(donation_id){

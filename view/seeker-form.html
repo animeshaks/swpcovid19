@@ -84,7 +84,8 @@
                 </div>
                 <div class="col-lg-6 offset-lg-3 symptom" ng-show="otpform">
                     <h2 class="mb-1 section-heading text-lg-center text-uppercase">Enter OTP</h2>
-                    <p class="mb-2 text-lg-center">Your request ID : {{requestid}}</p>
+                    <p class="mb-2 text-lg-center">{{requestid}}</p>
+                    <small style="color: red;">(We are showing otp here because we tried implementing twillio sms service but it was working only for registered number in free trial pack. If we will get some sponser for this project the we'll purchase the service and implement it on realtime.)</small>
                     <form>
                         <div class="row">
                             <div class="col-lg-8">

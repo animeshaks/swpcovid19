@@ -38,8 +38,10 @@ class anisrijan{
 
 		$query = mysqli_query($this->db, "INSERT INTO donation (donation_id,doner_name,doner_mobile,doner_pincode,doner_landmark,doner_area,doner_district,doner_region,doner_state,donation_stuff,donation_type,donation_charge,description,isVerified,verification_code,create_date) VALUES ('$donation_id','$doner_name','$doner_mobile','$pincode','$landmark','$area','$district','$region','$state','$donation_stuff','$donation_type','$chargable_amount','$remark','$isVerified','$verification_code','$create_date')") or die(mysqli_error($this->db));
 
+		$data = 'Your donation ID : '.$donation_id.' & OTP : '.$verification_code;
+
 		if($query)
-			return $donation_id;
+			return $data;
 		else
 			return false;
 	}
@@ -100,8 +102,10 @@ class anisrijan{
 
 		$query = mysqli_query($this->db, "INSERT INTO request (request_id,seeker_name,mobile,pincode,landmark,area,district,region,state,required_stuff,description,isVerified,verification_code,last_updated) VALUES ('$request_id','$name','$mobile','$pincode','$landmark','$area','$district','$region','$state','$required_stuff','$remark','$isVerified','$verification_code','$create_date')") or die(mysqli_error($this->db));
 
+		$data = 'Your request ID : '.$request_id.' & OTP : '.$verification_code;
+
 		if($query)
-			return $request_id;
+			return $data;
 		else
 			return false;
 	}
