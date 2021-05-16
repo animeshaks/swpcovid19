@@ -17,6 +17,11 @@ app.config(function ($stateProvider,$urlMatcherFactoryProvider,$urlRouterProvide
 		templateUrl: "view/contact.html"
 	})
 
+	.state("joinus", {
+		url: "/join-us",
+		templateUrl: "view/volunteer.html"
+	})
+
 	.state("fillform", {
 		url: "/fill-a-form",
 		templateUrl: "view/fill_form.html"

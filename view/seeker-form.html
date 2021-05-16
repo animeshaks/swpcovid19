@@ -16,7 +16,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="Phone">Phone</label>
-                                    <input type="Number" id="Phone" class="form-control" placeholder="eg. XXXXXXXXXX" ng-model="user_mobile" required>
+                                    <input type="Number" id="Phone" class="form-control" max="9999999999" min="6000000000" placeholder="eg. XXXXXXXXXX" ng-model="user_mobile" required>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                         <option value="Conveyance-Services">Conveyance-Services</option>
                                         <option value="FQA">Free Quartine Availabilty</option>
                                         <option value="MSPPE">Marks Sanitizer PPE kits</option>
-                                        <option value="Grocessary">Grocessary</option>
+                                        <option value="Groceries">Groceries</option>
                                     </select>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                 <div class="col-lg-6 offset-lg-3 symptom" ng-show="otpform">
                     <h2 class="mb-1 section-heading text-lg-center text-uppercase">Enter OTP</h2>
                     <p class="mb-2 text-lg-center">{{requestid}}</p>
-                    <small style="color: red;">(We are showing otp here because we tried implementing twillio sms service but it was working only for registered number in free trial pack. If we will get some sponser for this project the we'll purchase the service and implement it on realtime.)</small>
+                    <small style="color: red;">(We are showing otp here because we tried implementing twillio sms service which was suggested by one of the mentor at hackethon but it was working only for registered number in free trial pack. If we will get some sponser for this project the we'll purchase the service and implement it on realtime.)</small>
                     <form>
                         <div class="row">
                             <div class="col-lg-8">

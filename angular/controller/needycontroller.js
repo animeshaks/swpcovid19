@@ -64,8 +64,8 @@ app.controller('needycontroller',['$scope', '$rootScope', '$http', '$location', 
                 }else{
                     $scope.message= data.data;
 
-                    if($scope.message=="All fields are required" || $scope.message=="undefined" || $scope.message=="Error occured"){
-                        alert($scope.message);
+                    if($scope.message.scalar=="All fields are required" || $scope.message.scalar=="undefined" || $scope.message.scalar=="Error occured"){
+                        alert($scope.message.scalar);
                     }
                     else{
                         $scope.requestid = $scope.message;
