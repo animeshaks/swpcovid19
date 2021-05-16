@@ -54,11 +54,9 @@ app.controller('donercontroller',['$scope', '$rootScope', '$http', '$location', 
         .then((data) => {
             $scope.message="";
             if (data.errors) {
-                    // swal('Insertion Failed', 'Error occured during Insertion :)', 'error');
+                    alert('Insertion Failed - occured during Insertion :)');
                 }else{
-                    $scope.message= data.data.scalar;
-
-                    console.log($scope.message)
+                    $scope.message= data.data;
 
                     if($scope.message=="All fields are required" || $scope.message=="undefined" || $scope.message=="Error occured"){
                         alert($scope.message);

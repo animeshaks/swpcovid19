@@ -17,6 +17,11 @@ app.config(function ($stateProvider,$urlMatcherFactoryProvider,$urlRouterProvide
 		templateUrl: "view/contact.html"
 	})
 
+	.state("fillform", {
+		url: "/fill-a-form",
+		templateUrl: "view/fill_form.html"
+	})
+
 	.state("needyform", {
 		url: "/seeker-form",
 		templateUrl: "view/seeker-form.html",

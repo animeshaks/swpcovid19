@@ -62,9 +62,7 @@ app.controller('needycontroller',['$scope', '$rootScope', '$http', '$location', 
             if (data.errors) {
                     alert('Error occured during Insertion :)');
                 }else{
-                    $scope.message= data.data.scalar;
-
-                    console.log($scope.message)
+                    $scope.message= data.data;
 
                     if($scope.message=="All fields are required" || $scope.message=="undefined" || $scope.message=="Error occured"){
                         alert($scope.message);
