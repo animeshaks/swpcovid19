@@ -58,7 +58,7 @@ class anisrijan{
 
 			$query2 = mysqli_query($this->db, "UPDATE donation SET isVerified = 1 WHERE donation_id='$row[donation_id]'") or die(mysqli_error($this->db));
 
-			return $row;
+			return true;
 		}else{
 			return false;
 		}
@@ -122,7 +122,7 @@ class anisrijan{
 
 			$query2 = mysqli_query($this->db, "UPDATE request SET isVerified = 1, last_updated='$last_updated' WHERE request_id='$row[request_id]'") or die(mysqli_error($this->db));
 
-			return $row;
+			return true;
 		}else{
 			return false;
 		}
