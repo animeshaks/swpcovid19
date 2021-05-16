@@ -1,4 +1,4 @@
-# <p align="center" text-size="20px"><img src="Readme images/Logo.PNG" height="30" width="30">  SWP-Covid19</p>
+# <p align="center" text-size="20px"><img src="Images/Logo.PNG" height="30" width="30">  SWP-Covid19</p>
 
 ## Problem Statement
 
@@ -26,10 +26,10 @@ Beyond essential resources, the platform also aims to help people build each oth
 would like to provide to their community
 
 ## Technology Stack
-<p align="center" text-size="20px"><img src="Readme images/Technology stack.png" alt="Technology stack" align="center"></p>
+<p align="center" text-size="20px"><img src="Images/Technology stack.png" alt="Technology stack" align="center"></p>
 
 ## Flow Diagram
-<p align="center" text-size="20px" style='color:red'><img src="Readme images/Flow chart.png" alt="Work flow" align="center"></p>
+<p align="center" text-size="20px" style='color:red'><img src="Images/Flow chart.png" alt="Work flow" align="center"></p>
 
 ## How to Install and run on your localhost?
 Don't worry, be Happy . I am here to solve your query :smile:
