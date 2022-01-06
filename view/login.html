@@ -1,0 +1,265 @@
+<div ng-controller="userlogincontroller">
+	<div class="top-search-form">
+		<div class="container">
+			<div class="row align-items-center justify-content-center">
+				<div class="col-lg-8 text-center mx-auto my-5" ng-if="!otpform">
+					<h1 class="heading mb-5">Hello User ! Login here...</h1>
+					<form>
+						<div class="row">
+							<div class="col-lg-3">
+								<div class="form-group"> 
+                                    <select class="form-select form-control" style="border-radius: 20px;height: 40px;" ng-model="usertype">   
+                                        <option value="">--USER TYPE--</option>
+                                        <option value="doner">Doner</option>
+                                        <option value="seeker">Seeker</option>
+                                    </select>
+                                </div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<input type="Number" class="form-control" placeholder="Enter Your Mobile Number" style="border-radius: 20px;height: 40px;" ng-model="mobilenumber">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<input type="submit" class="btn btn-secondary btn-block" ng-click="login_user(usertype,mobilenumber)" value="Login">
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="col-lg-8 text-center mx-auto my-5" ng-if="otpform">
+					<h2 class="mb-3 section-heading text-lg-center">Enter OTP</h2>
+					<p class="mb-2 text-lg-center">{{data}}</p>
+					<form>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="Number" class="form-control" placeholder="Enter Your OTP" style="border-radius: 20px;height: 40px;" ng-model="otp" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="submit" class="btn btn-primary btn-block" ng-click="verify_user(otp,data.mobile_number,data.user_type)" value="Submit">
+                            </div>
+                        </div>
+                    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="site-section bg-primary-light" ng-show="doneravailable">
+		<div class="container">
+
+			<div class="symptom row mb-5">
+				<div class="col-lg-7 mx-auto text-center">
+					<h2 class="mb-4 section-heading">Search By Filter</h2>
+				</div>
+
+				<div class="table-responsive">
+					<table class="mytable table-bordered" style="overflow-x:auto;">
+						<tr>
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Oxygen Cylinder')" value="Oxygen-Cylinder">
+									<label class="form-check-label" for="inlineCheckbox1">Oxygen Cylinder</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Plasma')" value="Plasma">
+									<label class="form-check-label" for="inlineCheckbox2">Plasma</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Oxygen-Concentrator')">
+									<label class="form-check-label" for="inlineCheckbox3">Oxygen-Concentrator</label>
+								</div>
+							</td>	
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Remedesivir')">
+									<label class="form-check-label" for="inlineCheckbox1">Remedesivir</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Groceries')">
+									<label class="form-check-label" for="inlineCheckbox1">Groceries</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Multi Vitamins Medicine')">
+									<label class="form-check-label" for="inlineCheckbox1">Multi Vitamins Medicine</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Conveyance Services')">
+									<label class="form-check-label" for="inlineCheckbox2">Conveyance Services</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Free Quartine Availabilty')">
+									<label class="form-check-label" for="inlineCheckbox3">Free Quartine Availabilty</label>
+								</div>
+							</td>
+
+							<td style="padding:10px">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="stuff" ng-click="stuffFilter('Mask Sanitizer PPE kits')">
+									<label class="form-check-label" for="inlineCheckbox1">Mask Sanitizer PPE kits</label>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<small style="color: red;">(Currently this filter will show only one element at a time, but we will fix this bug very soon.......)</small>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4 mb-4" ng-repeat="donation in filteredResult">
+					<div class="symptom">
+						<div class="text">
+							
+							<small class="float-right">{{donation.create_date}}</small>
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0px; ">
+									<h3 style="font-size: 1.3rem;">{{donation.donation_stuff}}</h3>
+								</div>
+							</div>
+
+							<hr>
+
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<h3>{{donation.doner_name}}</h3>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<p>{{donation.donation_type}} : {{donation.donation_charge}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<p>{{donation.description}}</p>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
+									<p>{{donation.doner_pincode}}</p>
+									<p>{{donation.doner_area}}</p>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
+									<a href="tel://{{donation.doner_mobile}}" class="btn btn-primary float-right"><span class="icon-phone mr-2 mt-3" ></span>Call</a>
+								</div>
+							</div>
+							<hr>
+							<div class="row justify-content-between">
+								<div class="col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
+									<a class="btn btn-success" style="font-size: 15px;float: right;padding: 7px 20px;color: #000;" ng-click="like_modal(donation.donation_id)">
+										<span class="icon-thumbs-up">
+											<small>&nbsp;{{donation.upvote}}</small>
+										</span>
+									</a>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-6" style="width: 50%;">
+									<a class="btn btn-danger" style="font-size: 15px;padding: 7px 20px;color: #000;" ng-click="dislike_modal(donation.donation_id)">
+										<span class="icon-thumbs-down">
+											<small>&nbsp;{{donation.downvote}}</small>
+										</span>
+									</a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="site-section bg-primary-light" ng-show="donernotavailable">
+		<div class="container">
+			<div class="symptom row mb-5">
+				<div class="col-lg-7 mx-auto text-center">
+					<h2 class="mb-4 section-heading">No doner availaible in your location :(</h2>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal" id="likedonationmodel" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<h5 class="modal-title">Like {{donate_id}} ?</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          	<span aria-hidden="true">&times;</span>
+			        </button>
+		      	</div>
+		      	<div class="modal-body">
+		        	<form>
+						<div class="row">
+							<div class="col-lg-8 offset-lg-2">
+								<small>If Your Request Id will be correct then only this feature will work !!</small>
+								<div class="form-group">
+									<input type="text" style="border-radius: 20px;height: 40px;" class="form-control" placeholder="Enter Your Request ID" ng-model="requestId" required>
+								</div>
+							</div>
+						</div>
+					</form>
+		      	</div>
+		      	<div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" ng-click="like_donation(donate_id,requestId)" data-dismiss="modal">Submit</button>
+		      	</div>
+		    </div>
+	  	</div>
+	</div>
+
+	<div class="modal" id="dislikedonationmodel" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<h5 class="modal-title">Dislike {{donate_id}} ?</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          	<span aria-hidden="true">&times;</span>
+			        </button>
+		      	</div>
+		      	<div class="modal-body">
+		        	<form>
+						<div class="row">
+							<div class="col-lg-8 offset-lg-2">
+								<small>If Your Request Id will be correct then only this feature will work !!</small>
+								<div class="form-group">
+									<input type="text" style="border-radius: 20px;height: 40px;" class="form-control" placeholder="Enter Your Request ID" ng-model="requestId" required>
+								</div>
+							</div>
+						</div>
+					</form>
+		      	</div>
+		      	<div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" ng-click="dislike_donation(donate_id,requestId)" data-dismiss="modal">Submit</button>
+		      	</div>
+		    </div>
+	  	</div>
+	</div>
+
+</div>

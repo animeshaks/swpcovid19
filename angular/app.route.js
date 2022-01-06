@@ -12,6 +12,12 @@ app.config(function ($stateProvider,$urlMatcherFactoryProvider,$urlRouterProvide
 		controller: "homecontroller"
 	})
 
+	.state("login", {
+		url: "/user-login",
+		templateUrl: "view/login.html",
+		controller: "userlogincontroller"
+	})
+
 	.state("contact", {
 		url: "/contact-us",
 		templateUrl: "view/contact.html"

@@ -54,14 +54,17 @@ class anisrijan{
 		$otp = mysqli_real_escape_string($this->db,$otp);
 
 		$query1 = mysqli_query($this->db, "SELECT donation_id FROM donation WHERE donation_id='$donation_id' AND verification_code='$otp'") or die(mysqli_error($this->db));
-		if ($query1) {
+		if (mysqli_num_rows($query1)>0) {
 			$row=mysqli_fetch_array($query1,MYSQLI_ASSOC);
 
 			$last_login = time();
 
 			$query2 = mysqli_query($this->db, "UPDATE donation SET isVerified = 1 WHERE donation_id='$row[donation_id]'") or die(mysqli_error($this->db));
 
-			return true;
+			if($query2)
+				return true;
+			else
+				return false;
 		}else{
 			return false;
 		}
@@ -121,14 +124,17 @@ class anisrijan{
 		$otp = mysqli_real_escape_string($this->db,$otp);
 
 		$query1 = mysqli_query($this->db, "SELECT request_id FROM request WHERE request_id='$request_id' AND verification_code='$otp'") or die(mysqli_error($this->db));
-		if ($query1) {
+		if (mysqli_num_rows($query1)>0) {
 			$row=mysqli_fetch_array($query1,MYSQLI_ASSOC);
 
 			$last_updated = time();
 
 			$query2 = mysqli_query($this->db, "UPDATE request SET isVerified = 1, last_updated='$last_updated' WHERE request_id='$row[request_id]'") or die(mysqli_error($this->db));
 
-			return true;
+			if($query2)
+				return true;
+			else
+				return false;
 		}else{
 			return false;
 		}
@@ -147,7 +153,7 @@ class anisrijan{
 		$pincode = mysqli_real_escape_string($this->db,$pincode);
 		$region = mysqli_real_escape_string($this->db,$region);
 
-		$query = mysqli_query($this->db, "SELECT donation.donation_id,donation.doner_name,donation.doner_mobile,donation.doner_pincode,donation.doner_landmark,donation.doner_area,donation.doner_district,donation.doner_region,donation.doner_state,donation.donation_stuff,donation.donation_type,donation.donation_charge,donation.description,donation.create_date,donation_statistics.upvote,donation_statistics.downvote FROM donation JOIN donation_statistics USING (donation_id) WHERE donation.doner_region='$region' ORDER BY create_date DESC") or die(mysqli_error($this->db));
+		$query = mysqli_query($this->db, "SELECT DISTINCT donation.donation_id,donation.doner_name,donation.doner_mobile,donation.doner_pincode,donation.doner_landmark,donation.doner_area,donation.doner_district,donation.doner_region,donation.doner_state,donation.donation_stuff,donation.donation_type,donation.donation_charge,donation.description,donation.create_date,donation_statistics.upvote,donation_statistics.downvote FROM donation JOIN donation_statistics USING (donation_id) WHERE donation.doner_region='$region' ORDER BY create_date DESC") or die(mysqli_error($this->db));
 		if($query){
 			while ($row=mysqli_fetch_array($query,MYSQLI_ASSOC)) {
 				$row['create_date']=date('d/m/Y',$row['create_date']);
@@ -199,7 +205,7 @@ class anisrijan{
 		$pincode = mysqli_real_escape_string($this->db,$pincode);
 		$region = mysqli_real_escape_string($this->db,$region);
 
-		$query = mysqli_query($this->db, "SELECT request.request_id,request.seeker_name,request.mobile,request.pincode,request.landmark,request.area,request.district,request.region,request.state,request.required_stuff,request.description,request.last_updated,request_statistics.upvote,request_statistics.downvote FROM request JOIN request_statistics USING (request_id) WHERE request.region='$region' AND isVerified=1 ORDER BY last_updated DESC") or die(mysqli_error($this->db));
+		$query = mysqli_query($this->db, "SELECT DISTINCT request.request_id,request.seeker_name,request.mobile,request.pincode,request.landmark,request.area,request.district,request.region,request.state,request.required_stuff,request.description,request.last_updated,request_statistics.upvote,request_statistics.downvote FROM request JOIN request_statistics USING (request_id) WHERE request.region='$region' AND isVerified=1 ORDER BY last_updated DESC") or die(mysqli_error($this->db));
 		if($query){
 			while ($row=mysqli_fetch_array($query,MYSQLI_ASSOC)) {
 				$row['last_updated']=date('d/m/Y',$row['last_updated']);
@@ -244,6 +250,29 @@ class anisrijan{
 				return true;
 			else
 				return false;	
+		}
+	}
+
+	public function check_login_doner($mobile_number,$user_type){
+		$mobile_number = mysqli_real_escape_string($this->db,$mobile_number);
+
+		$query1 = mysqli_query($this->db, "SELECT id FROM donation WHERE doner_mobile='$mobile_number' LIMIT 1") or die(mysqli_error($this->db));
+
+		if(mysqli_num_rows($query1)>0){
+
+			$verification_code = rand(100000,999999);
+
+			$query2 = mysqli_query($this->db, "UPDATE donation SET verification_code = '$verification_code' WHERE doner_mobile='$mobile_number'") or die(mysqli_error($this->db));
+			if($query2){
+				$row['verification_code'] = $verification_code;
+				$row['mobile_number'] = $mobile_number;
+				$row['user_type'] = $user_type;
+				return $row;
+			}
+			else
+				return false;
+		}else{
+			return false;
 		}
 	}
 
